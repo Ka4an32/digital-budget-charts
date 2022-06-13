@@ -1,5 +1,5 @@
 import { ChartData } from "chart.js";
-import { dataType, monthType } from "../../data/data";
+import { dataType, dayType } from "../../data/data";
 import dateParser from "../common/dateParser/dateParser";
 
 const setInstrumentalValue = (
@@ -17,7 +17,7 @@ const setInstrumentalValue = (
   return reduce;
 };
 
-const LineChartDataParser = (months: Array<monthType>) => {
+const LineChartDataParser = (months: Array<dayType>) => {
   const labels = months.map(({ date }) => dateParser(date));
 
   const allInstrumentData = months.reduce(

@@ -1,10 +1,10 @@
-import ALL_ACTION from "../../../../constants/actions/AllActionConstants";
+import { createReducer } from "@reduxjs/toolkit";
 import {
   metaSplitData,
   siteDataType,
   splitDataType,
 } from "../../../../types/splitDataType";
-import { SplitDataActionsType } from "../../actions/splitDataActions/splitDataActions";
+import splitDataActions from "../../actions/splitDataActions/splitDataActions";
 
 export type initialSplitStateDataType = {
   metaData: metaSplitData;
@@ -28,33 +28,24 @@ const initialState: initialSplitStateDataType = {
   },
 };
 
-const SplitDataReducer = (
-  state = initialState,
-  action: SplitDataActionsType
-): initialSplitStateDataType => {
-  switch (action.type) {
-    //
-    case ALL_ACTION.SPLIT_DATA_ACTIONS.SET_PROCCESS: {
-      return {
-        ...state,
-        metaData: {
-          isDateSplitting: action.payload.isProcess,
-        },
-      };
-    }
-    //
-    case ALL_ACTION.SPLIT_DATA_ACTIONS.SET_SPLITE_DATA: {
-      return {
-        ...state,
-        siteData: action.payload.siteData,
-        splitData: action.payload.splitData,
-      };
-    }
-    //
-    default: {
-      return state;
-    }
-  }
-};
+const SplitDataReducer = createReducer(initialState, (builder) => {
+  builder.addCase(
+    splitDataActions.SplitDataActions.setSplitData,
+    (state, { payload }) => ({
+      ...state,
+      siteData: payload.siteData,
+      splitData: payload.splitData,
+    })
+  );
+  builder.addCase(
+    splitDataActions.SplitDataActions.setProcces,
+    (state, { payload }) => ({
+      ...state,
+      metaData: {
+        isDateSplitting: payload.isProcess,
+      },
+    })
+  );
+});
 
 export default SplitDataReducer;

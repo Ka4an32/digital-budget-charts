@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./style/css/nullable.css";
+import "rsuite/dist/rsuite.min.css";
 import "./style/css/fonts.css";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
-import DataService from "./services/DataService/DataService";
+import data from "./data/data";
 import ThemeColorService from "./services/ColorThemeService/ColorThemeService";
+import splitDataActions from "./store/redux/actions/splitDataActions/splitDataActions";
+import { AppThunkDispatch } from "./store/redux/store";
+import { useDispatch } from "react-redux";
+import MainLayout from "./layouts/MainLayout";
 
 export type selectionRange = Array<{
   startDate: Date;
@@ -15,12 +20,16 @@ export type selectionRange = Array<{
 }>;
 
 function App() {
+  const dispatch: AppThunkDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(splitDataActions.SplitDataThunks.splittingDate(data));
+  }, []);
+
   return (
     <div className="App">
       <ThemeColorService>
-        <DataService>
-          <div>ChartsJS</div>
-        </DataService>
+        <MainLayout />
       </ThemeColorService>
     </div>
   );

@@ -1,6 +1,6 @@
-const DATA_ACTIONS = {
+const SPLIT_DATA_ACTIONS = {
   SET_SPLITE_DATA: "SET_SPLITE_DATA" as const,
   SET_PROCCESS: "SET_PROCCESS" as const,
 };
 
-export default DATA_ACTIONS;
+export default SPLIT_DATA_ACTIONS;

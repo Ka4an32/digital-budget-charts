@@ -1,7 +1,7 @@
 import { selectionRange } from "../App";
-import { monthType } from "../data/data";
+import { dayType } from "../data/data";
 
-const DataPeriodParser = (months: Array<monthType>, period: selectionRange) => {
+const DataPeriodParser = (months: Array<dayType>, period: selectionRange) => {
   const isDefaultValue =
     period[0].startDate.getTime() === period[0].endDate.getTime();
 

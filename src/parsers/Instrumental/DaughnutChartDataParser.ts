@@ -1,6 +1,6 @@
-import { monthType } from "../../data/data";
+import { dayType } from "../../data/data";
 
-const parsedate = (months: Array<monthType>) => {
+const parsedate = (months: Array<dayType>) => {
   let InstrumentalBudget: {
     [key: string]: {
       mobile: number;
@@ -55,7 +55,7 @@ const summInstrumentalBudget = (
   };
 };
 
-const DaughnutChartDataParser = (months: Array<monthType>) => {
+const DaughnutChartDataParser = (months: Array<dayType>) => {
   const InstrumentalBudget = parsedate(months);
   const ConfigAllData = summInstrumentalBudget(InstrumentalBudget);
   const ConfigMobileData = summInstrumentalBudget(InstrumentalBudget, "mobile");

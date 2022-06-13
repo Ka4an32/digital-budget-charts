@@ -1,22 +1,23 @@
-import { DifferentData } from "../../../../types/dataTypes";
+import { createReducer } from "@reduxjs/toolkit";
+import { PeriodData } from "../../../../types/dataTypes";
+import parseDataActions from "../../actions/parseDataActions/parseDataActions";
 
 type initialStateType = {
-  data: DifferentData;
+  periodData: PeriodData[];
 };
 
 const initialState: initialStateType = {
-  data: {},
+  periodData: [],
 };
 
-const ParseDataReducer = (
-  state = initialState,
-  action: any
-): initialStateType => {
-  switch (action.type) {
-    default: {
-      return state;
-    }
-  }
-};
+const ParseDataReducer = createReducer(initialState, (builder) => {
+  builder.addCase(
+    parseDataActions.ParseDataActions.setPeriodData,
+    (state, { payload }) => ({
+      ...state,
+      periodData: payload.periodData,
+    })
+  );
+});
 
 export default ParseDataReducer;

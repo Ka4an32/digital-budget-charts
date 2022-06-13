@@ -1,0 +1,5 @@
+const PARSE_DATA_ACTIONS = {
+  SET_PERIOD_DATA: "SET_PERIOD_DATA",
+};
+
+export default PARSE_DATA_ACTIONS;

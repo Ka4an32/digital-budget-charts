@@ -6,11 +6,15 @@ export type IntstrumentalType = {
   visits: number;
 };
 
+export type PeriodType = [Date, Date] | null;
+
+export type PeriodData = {
+  label: string;
+  data: IntstrumentalType[];
+};
+
 export type DifferentData = {
-  [key: string]: {
-    label: string;
-    data: IntstrumentalType[];
-  };
+  [key: string]: PeriodData;
 };
 
 export type PrimaryDataType = {

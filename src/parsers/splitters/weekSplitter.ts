@@ -10,7 +10,7 @@ const WeekSplitterData = (days: dayType[]) => {
 
   const weeklyData = days.reduce((reduce: DifferentData, { data, date }) => {
     const [year, month, day] = date.split("-");
-    const weeklyDate = new Date(+year, +month, +day);
+    const weeklyDate = new Date(+year, +month - 1, +day);
     const weekDay = weeklyDate.getDay();
 
     if (previousMonth !== +month || previousYear !== +year) {
@@ -25,12 +25,7 @@ const WeekSplitterData = (days: dayType[]) => {
       dayCount += 6;
     }
 
-    return splitterCore(
-      data,
-      reduce,
-      `${count}`,
-      `${year}-${month}-${("0" + dayCount).slice(-2)}`
-    );
+    return splitterCore(data, reduce, `${count}`, `${year}-${month}-${day}`);
   }, {});
   return weeklyData;
 };
