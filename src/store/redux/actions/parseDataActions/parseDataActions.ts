@@ -4,6 +4,7 @@ import { PeriodData, PeriodType } from "../../../../types/dataTypes";
 import { dateModeType, splitDataType } from "../../../../types/splitDataType";
 import { AppDispatch } from "../../store";
 import periodParser from "../../../../parsers/period/period";
+import periodDateMode from "../../../../parsers/period/periodDateMode";
 
 const ParseDataActions = {
   setPeriodData: createAction(
@@ -14,6 +15,22 @@ const ParseDataActions = {
       },
     })
   ),
+  setDateMode: createAction(
+    ALL_ACTION.PARSE_DATA_ACTIONS.SET_DATE_MODE,
+    (dateMode: dateModeType) => ({
+      payload: {
+        dateMode,
+      },
+    })
+  ),
+  setDatePeriod: createAction(
+    ALL_ACTION.PARSE_DATA_ACTIONS.SET_DATE_PERIOD,
+    (datePeriod: PeriodType) => ({
+      payload: {
+        datePeriod,
+      },
+    })
+  ),
 };
 
 const ParseDataThunks = {
@@ -21,11 +38,17 @@ const ParseDataThunks = {
     (
       data: splitDataType,
       period: PeriodType = null,
-      mode: dateModeType = "WEEKLY"
+      mode: dateModeType = "MONTH"
     ) =>
     (dispatch: AppDispatch) => {
-      const periodData = periodParser(data, period, mode);
-      console.log("Choose period data: ", periodData);
+      const modeAfterPars = periodDateMode(period, mode);
+      const periodData = periodParser(data, period, modeAfterPars);
+
+      console.log("Mode after pars: ", modeAfterPars);
+      // console.log("Choose period data: ", periodData)
+
+      dispatch(ParseDataActions.setDatePeriod(period));
+      dispatch(ParseDataActions.setDateMode(modeAfterPars));
       dispatch(ParseDataActions.setPeriodData(periodData));
     },
 };

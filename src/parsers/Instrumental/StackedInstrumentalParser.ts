@@ -1,4 +1,3 @@
-import { ChartData } from "chart.js";
 import { dataType, dayType } from "../../data/data";
 import dateParser from "../common/dateParser/dateParser";
 

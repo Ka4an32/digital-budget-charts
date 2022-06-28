@@ -1,4 +1,4 @@
-import { dataType, dayType } from "../../data/data";
+import { dataType } from "../../data/data";
 import { IntstrumentalType, PeriodData } from "../../types/dataTypes";
 
 type resourceType = keyof IntstrumentalType;
