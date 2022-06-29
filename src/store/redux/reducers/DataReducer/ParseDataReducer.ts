@@ -6,6 +6,7 @@ import parseDataActions from "../../actions/parseDataActions/parseDataActions";
 type initialStateType = {
   periodData: PeriodData[];
   dateMode: dateModeType;
+  allowedDateMode: dateModeType[];
   datePeriod: PeriodType;
 };
 
@@ -13,6 +14,7 @@ const initialState: initialStateType = {
   periodData: [],
   dateMode: "MONTH",
   datePeriod: null,
+  allowedDateMode: [],
 };
 
 const ParseDataReducer = createReducer(initialState, (builder) => {
@@ -28,6 +30,7 @@ const ParseDataReducer = createReducer(initialState, (builder) => {
     (state, { payload }) => ({
       ...state,
       dateMode: payload.dateMode,
+      allowedDateMode: payload.allowPeriods,
     })
   );
   builder.addCase(

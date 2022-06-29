@@ -9,11 +9,16 @@ import { dateModeType } from "../../../types/splitDataType";
 const PickerBlock: React.FC = () => {
   const [period, setPeriod] = useState<[Date, Date] | null>(null);
 
-  const { splitData, dateMode } = useSelector((state: RootReducer) => ({
+  const { splitData, dateMode, allowedDateMode } = useSelector((state: RootReducer) => ({
     splitData: state.SplitDataReducer.splitData,
     dateMode: state.ParseDataReducer.dateMode,
+    allowedDateMode: state.ParseDataReducer.allowedDateMode
   }));
   const dispatch: AppThunkDispatch = useDispatch();
+
+  const diabledButtonIfNotAllowFormat = useCallback((mode: dateModeType) => {
+    return !allowedDateMode.find((item) => item === mode)
+  }, [allowedDateMode])
 
   useEffect(() => {
     dispatch(
@@ -27,6 +32,9 @@ const PickerBlock: React.FC = () => {
 
   const handleAlignment = useCallback(
     (e: React.MouseEvent<HTMLElement>, mode: dateModeType) => {
+      if(!mode) {
+        return
+      }
       dispatch(
         parseDataActions.ParseDataThunks.filterDatePeriodModeData(
           splitData,
@@ -50,16 +58,16 @@ const PickerBlock: React.FC = () => {
           onChange={handleAlignment}
           aria-label="text alignment"
         >
-          <ToggleButton value="DAY" aria-label="left aligned">
+          <ToggleButton value="DAY" disabled={diabledButtonIfNotAllowFormat('DAY')} aria-label="left aligned">
             День
           </ToggleButton>
-          <ToggleButton value="WEEKLY" aria-label="centered">
+          <ToggleButton value="WEEKLY" disabled={diabledButtonIfNotAllowFormat('WEEKLY')} aria-label="centered">
             Неделя
           </ToggleButton>
-          <ToggleButton value="MONTH" aria-label="right aligned">
+          <ToggleButton value="MONTH" disabled={diabledButtonIfNotAllowFormat('MONTH')} aria-label="right aligned">
             Месяц
           </ToggleButton>
-          <ToggleButton value="YEAR" aria-label="justified">
+          <ToggleButton value="YEAR" disabled={diabledButtonIfNotAllowFormat('YEAR')} aria-label="justified">
             Год
           </ToggleButton>
         </ToggleButtonGroup>

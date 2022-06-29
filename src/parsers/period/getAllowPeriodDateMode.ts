@@ -25,35 +25,40 @@ const modeMargin: {
   },
 };
 
-const periodDateMode = (
+const getAllowPeriodDateMode = (
   period: PeriodType,
   rangeMode: dateModeType
-): dateModeType => {
+): [dateModeType, dateModeType[]] => {
   if (!period) {
-    return rangeMode === "MONTH" || rangeMode === "YEAR" ? rangeMode : "MONTH";
+    return [
+      rangeMode === "MONTH" || rangeMode === "YEAR" ? rangeMode : "MONTH",
+      ["MONTH", "YEAR"],
+    ];
   }
 
   const [start, end] = period;
   const periodMilliseconds = end.getTime() - start.getTime();
 
-  if (
-    periodMilliseconds >= modeMargin[rangeMode].min &&
-    periodMilliseconds <= modeMargin[rangeMode].max
-  ) {
-    return rangeMode;
-  }
-
+  const allowPeriods: dateModeType[] = [];
   let key: dateModeType;
   for (key in modeMargin) {
     if (
       periodMilliseconds >= modeMargin[key].min &&
       periodMilliseconds <= modeMargin[key].max
     ) {
-      return key;
+      allowPeriods.push(key);
     }
   }
 
-  return "MONTH";
+  // console.log(
+  //   allowPeriods.find((mode) => mode === rangeMode),
+  //   rangeMode,
+  //   allowPeriods
+  // );
+  const choosePeriod =
+    allowPeriods.find((mode) => mode === rangeMode) ?? allowPeriods[0];
+
+  return [choosePeriod, allowPeriods];
 };
 
-export default periodDateMode;
+export default getAllowPeriodDateMode;

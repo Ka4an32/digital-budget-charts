@@ -1,6 +1,9 @@
 import { dayType } from "../../data/data";
+import { IntstrumentalType, PeriodData } from "../../types/dataTypes";
 
-const parsedate = (months: Array<dayType>) => {
+type resourceType = keyof IntstrumentalType;
+
+const parsedate = (months: PeriodData[], resource: resourceType) => {
   let InstrumentalBudget: {
     [key: string]: {
       mobile: number;
@@ -9,14 +12,15 @@ const parsedate = (months: Array<dayType>) => {
   } = {};
 
   months.forEach(({ data }) => {
-    data.forEach(({ kind, type, budget }) => {
+    data.forEach((item) => {
+      const { kind, type } = item;
       if (!InstrumentalBudget[kind]) {
         InstrumentalBudget[kind] = {
           desktop: 0,
           mobile: 0,
         };
       }
-      InstrumentalBudget[kind][type] += budget;
+      InstrumentalBudget[kind][type] += Number(item[resource]);
     });
   });
 
@@ -55,12 +59,15 @@ const summInstrumentalBudget = (
   };
 };
 
-const DaughnutChartDataParser = (months: Array<dayType>) => {
-  const InstrumentalBudget = parsedate(months);
-  const ConfigAllData = summInstrumentalBudget(InstrumentalBudget);
-  const ConfigMobileData = summInstrumentalBudget(InstrumentalBudget, "mobile");
+const ShareParser = (months: PeriodData[], resource: resourceType) => {
+  const InstrumentalResource = parsedate(months, resource);
+  const ConfigAllData = summInstrumentalBudget(InstrumentalResource);
+  const ConfigMobileData = summInstrumentalBudget(
+    InstrumentalResource,
+    "mobile"
+  );
   const ConfigDesktopData = summInstrumentalBudget(
-    InstrumentalBudget,
+    InstrumentalResource,
     "desktop"
   );
 
@@ -71,4 +78,4 @@ const DaughnutChartDataParser = (months: Array<dayType>) => {
   };
 };
 
-export default DaughnutChartDataParser;
+export default ShareParser;

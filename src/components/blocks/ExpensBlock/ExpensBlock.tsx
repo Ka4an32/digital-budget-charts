@@ -1,5 +1,6 @@
 import { Grid, Card } from "@mui/material";
 import React from "react";
+import InstrumentalExpens from "../../charts/Expens/InstrumentalExpens/InstrumentalExpens";
 import PlatformExpens from "../../charts/Expens/PlatformExpens/PlatformExpens";
 import ResourceChartsBlock from "../ResourceChartsBlock/ResourceChartsBlock";
 
@@ -9,6 +10,15 @@ const ExpensBlock: React.FC = () => {
       <Grid item xs={12}>
         <Card sx={{ padding: "20px" }}>
           <PlatformExpens />
+        </Card>
+      </Grid>
+      <Grid item xs={12}>
+        <Card sx={{ padding: "20px" }}>
+          <InstrumentalExpens />
+        </Card>
+      </Grid>
+      <Grid item xs={12}>
+        <Card sx={{ padding: "20px" }}>
         </Card>
       </Grid>
     </ResourceChartsBlock>
