@@ -1,34 +1,51 @@
-import { dataType, dayType } from "../../data/data";
-import dateParser from "../common/dateParser/dateParser";
+import { dataType } from "../../data/data";
+import { IntstrumentalType, PeriodData } from "../../types/dataTypes";
+
+type resourceType = keyof IntstrumentalType;
 
 const setInstrumentalValue = (
   reduce: {
     [key in string]: number[];
   },
-  data: Array<dataType>
+  data: Array<dataType>,
+  resource: resourceType
 ) => {
   data.forEach((item) => {
     reduce[item.kind]
-      ? reduce[item.kind].push(item.budget)
-      : (reduce[item.kind] = [item.budget]);
+      ? reduce[item.kind].push(+item[resource])
+      : (reduce[item.kind] = [+item[resource]]);
   });
 
   return reduce;
+  // return datasets;
 };
 
-const LineChartDataParser = (months: Array<dayType>) => {
-  const labels = months.map(({ date }) => dateParser(date));
-
-  const allInstrumentData = months.reduce(
-    (collection, { data }) => setInstrumentalValue(collection, data),
+const StackedChartDataParser = (
+  months: PeriodData[],
+  resource: resourceType
+) => {
+  const labels = months.map(({ label }) => label);
+  const data: any = months.reduce(
+    (collection, { data }) => setInstrumentalValue(collection, data, resource),
     {}
   );
 
-  console.log(allInstrumentData);
+  const datasets = [];
+  for (let key in data) {
+    datasets.push({
+      label: key,
+      data: data[key],
+      backgroundColor: `rgba(${Math.random() * 100}, ${Math.random() * 100}, ${
+        Math.random() * 100
+      })`,
+    });
+  }
+
   const parseData = {
     labels,
+    datasets,
   };
   return parseData;
 };
 
-export default LineChartDataParser;
+export default StackedChartDataParser;
