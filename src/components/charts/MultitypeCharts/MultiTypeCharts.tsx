@@ -27,7 +27,7 @@ const MultiTypeCharts: React.FC<{
 }> = ({ data }) => {
   return (
     <div>
-      <Chart type="bar" data={data} />;
+      <Chart height={'30vh'} width={'100%'} type="bar" data={data} />;
     </div>
   );
 };

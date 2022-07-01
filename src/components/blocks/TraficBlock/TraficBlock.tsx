@@ -7,7 +7,7 @@ import ResourceChartsBlock from "../ResourceChartsBlock/ResourceChartsBlock";
 
 const TraficBlock: React.FC = () => {
   return (
-    <ResourceChartsBlock>
+    <ResourceChartsBlock blockName="Трафик">
       <Grid item xs={12}>
         <Card sx={{ padding: "20px" }}>
           <PlatformTrafic />

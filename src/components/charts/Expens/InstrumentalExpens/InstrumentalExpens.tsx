@@ -88,13 +88,13 @@ const InstrumentalExpens: React.FC = () => {
 
   return (
     <Grid spacing={5} container>
-      <Grid xs={3} sx={gridStyle} item>
+      <Grid lg={3} md={7} sm={12} sx={[gridStyle, {margin: '0 auto'}]} item>
         <DoughtCharts data={dataDough} options={options} />
       </Grid>
-      <Grid xs={4.5} sx={gridStyle} item>
+      <Grid lg={4.5} md={6} sm={12} sx={gridStyle} item>
         <HorizontalAllInstrumentalBar data={dataAllInstrumental} />
       </Grid>
-      <Grid xs={4.5} sx={gridStyle} item>
+      <Grid lg={4.5} md={6} sm={12} sx={gridStyle} item>
         <HorizontalDifferentInstrumentalBar data={dataDiffInstrumental} />
       </Grid>
     </Grid>

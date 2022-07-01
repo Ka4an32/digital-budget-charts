@@ -5,6 +5,7 @@ import { dateModeType, splitDataType } from "../../../../types/splitDataType";
 import { AppDispatch } from "../../store";
 import periodParser from "../../../../parsers/period/period";
 import getAllowPeriodDateMode from "../../../../parsers/period/getAllowPeriodDateMode";
+import getAllResources from "../../../../parsers/getAllResources/getAllResurces";
 
 const ParseDataActions = {
   setPeriodData: createAction(
@@ -32,6 +33,14 @@ const ParseDataActions = {
       },
     })
   ),
+  // setResource: createAction(
+  //   ALL_ACTION.PARSE_DATA_ACTIONS.SET_RESOURCE,
+  //   (dateResource: ) => ({
+  //     payload: {
+  //       datePeriod,
+  //     },
+  //   })
+  // ),
 };
 
 const ParseDataThunks = {
@@ -47,12 +56,14 @@ const ParseDataThunks = {
         mode
       );
       const periodData = periodParser(data, period, modeAfterPars);
-      console.log("Mode after pars: ", modeAfterPars);
       // console.log("Choose period data: ", periodData)
       dispatch(ParseDataActions.setDatePeriod(period));
       dispatch(ParseDataActions.setDateMode(modeAfterPars, allowedPeriods));
       dispatch(ParseDataActions.setPeriodData(periodData));
     },
+  getAllResources: (data: splitDataType) => {
+    getAllResources(data, "budget");
+  },
 };
 
 export default {

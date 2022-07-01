@@ -21,8 +21,6 @@ const MixedResource: React.FC = () => {
     const budgetData = PlatformResourceParser(periodData, "budget");
     const visitData = PlatformResourceParser(periodData, "visits");
 
-    console.log(budgetData, visitData);
-
     setData({
       labels: budgetData.labels,
       datasets: [

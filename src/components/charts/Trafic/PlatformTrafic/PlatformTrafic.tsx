@@ -41,8 +41,6 @@ const PlatformTrafic = () => {
     });
   }, [periodData]);
 
-  console.log(data);
-
   return (
     <div>
       <LineChart data={data} />

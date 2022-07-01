@@ -9,10 +9,10 @@ const YearSplitterData = (days: dayType[]) => {
     return splitterCore(data, reduce, year, `${year}-01-01`);
   }, {});
   const dateAfter = new Date();
-  console.log(
-    "Get summ year: ",
-    (dateAfter.getTime() - dateBefore.getTime()) / 1000
-  );
+  // console.log(
+  //   "Get summ year: ",
+  //   (dateAfter.getTime() - dateBefore.getTime()) / 1000
+  // );
   return yearsData;
 };
 

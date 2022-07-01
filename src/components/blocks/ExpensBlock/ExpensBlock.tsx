@@ -7,7 +7,7 @@ import ResourceChartsBlock from "../ResourceChartsBlock/ResourceChartsBlock";
 
 const ExpensBlock: React.FC = () => {
   return (
-    <ResourceChartsBlock>
+    <ResourceChartsBlock blockName="Бюджеты">
       <Grid item xs={12}>
         <Card sx={{ padding: "20px" }}>
           <PlatformExpens />

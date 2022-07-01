@@ -1,3 +1,4 @@
+import { ResourceSummType } from "./../../../../types/dataTypes";
 import { createReducer } from "@reduxjs/toolkit";
 import { PeriodData, PeriodType } from "../../../../types/dataTypes";
 import { dateModeType } from "../../../../types/splitDataType";
@@ -8,13 +9,26 @@ type initialStateType = {
   dateMode: dateModeType;
   allowedDateMode: dateModeType[];
   datePeriod: PeriodType;
+  resource: ResourceSummType;
 };
 
 const initialState: initialStateType = {
-  periodData: [],
   dateMode: "MONTH",
   datePeriod: null,
+  periodData: [],
   allowedDateMode: [],
+  resource: {
+    budget: {
+      all: 0,
+      desktop: 0,
+      mobile: 0,
+    },
+    trafic: {
+      all: 0,
+      desktop: 0,
+      mobile: 0,
+    },
+  },
 };
 
 const ParseDataReducer = createReducer(initialState, (builder) => {

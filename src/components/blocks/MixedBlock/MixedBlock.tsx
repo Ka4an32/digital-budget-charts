@@ -5,7 +5,7 @@ import ResourceChartsBlock from "../ResourceChartsBlock/ResourceChartsBlock";
 
 const MixedBlock: React.FC = () => {
   return (
-    <ResourceChartsBlock>
+    <ResourceChartsBlock blockName="Бюджет и трафик">
       <Grid item xs={12}>
         <Card sx={{ padding: "20px" }}>
           <MixedResource />

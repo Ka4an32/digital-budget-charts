@@ -22,3 +22,15 @@ export type PrimaryDataType = {
   category: string;
   days: DifferentData;
 };
+
+export type resourceType = keyof IntstrumentalType;
+
+export type ResourceDataType = {
+  all: number;
+  desktop: number;
+  mobile: number;
+};
+export type ResourceSummType = {
+  trafic: ResourceDataType;
+  budget: ResourceDataType;
+};
