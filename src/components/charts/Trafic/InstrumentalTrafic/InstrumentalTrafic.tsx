@@ -1,12 +1,13 @@
-import { Grid } from "@mui/material";
+import { Grid, useTheme } from "@mui/material";
 import { ChartData } from "chart.js";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import ShareParser from "../../../../parsers/InstrumentalResourceParser/ShareParser";
+import { ColorModeContext } from "../../../../services/ColorThemeService/ColorThemeService";
 import { RootReducer } from "../../../../store/redux/store";
-import DoughtCharts from "../../DoughnutChart/DoughtCatrts";
-import HorizontalAllInstrumentalBar from "../../HorizontalChart/HorizontalAllInstrumentalBar";
-import HorizontalDifferentInstrumentalBar from "../../HorizontalChart/HorizontalDifferentInstrumentalBar";
+import DoughtCharts from "../../layouts/DoughnutChart/DoughtCatrts";
+import HorizontalAllInstrumentalBar from "../../layouts/HorizontalChart/HorizontalAllInstrumentalBar";
+import HorizontalDifferentInstrumentalBar from "../../layouts/HorizontalChart/HorizontalDifferentInstrumentalBar";
 
 const gridStyle = {
   // display: "flex",
@@ -50,16 +51,27 @@ const InstrumentalTrafic: React.FC = () => {
     periodData: state.ParseDataReducer.periodData,
   }));
 
+  const theme: any = useTheme();
+
+  const themeController = useContext(ColorModeContext);
+
   useEffect(() => {
     const { ConfigAllData, ConfigDesktopData, ConfigMobileData } = ShareParser(
       periodData,
       "visits"
     );
+
+    const backgroundColor = ConfigAllData.labels.map((item) => {
+      return theme.palette[item].light;
+    });
+
     setDataDough({
       labels: ConfigAllData.labels,
       datasets: [
         {
           data: ConfigAllData.data,
+          backgroundColor: backgroundColor,
+          borderColor: themeController.mode === "light" ? "#FFFFFF" : "#000000",
         },
       ],
     });
@@ -68,6 +80,7 @@ const InstrumentalTrafic: React.FC = () => {
       datasets: [
         {
           data: ConfigAllData.data,
+          backgroundColor: backgroundColor,
         },
       ],
     });
@@ -84,7 +97,7 @@ const InstrumentalTrafic: React.FC = () => {
         },
       ],
     });
-  }, [periodData]);
+  }, [periodData, themeController.mode]);
 
   return (
     <Grid spacing={5} container>

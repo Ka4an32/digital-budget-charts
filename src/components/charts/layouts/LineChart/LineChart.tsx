@@ -7,7 +7,9 @@ import {
   PointElement,
   LineElement,
   Tooltip,
+  Title,
   Legend,
+  Filler,
   CoreChartOptions,
   PluginChartOptions,
   LineControllerChartOptions,
@@ -22,7 +24,9 @@ ChartJS.register(
   PointElement,
   LineElement,
   Tooltip,
-  Legend
+  Legend,
+  Title,
+  Filler
 );
 
 const options: _DeepPartialObject<

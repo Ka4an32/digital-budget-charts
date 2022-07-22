@@ -1,15 +1,17 @@
-import React from "react"
-import PickerBlock from "../../blocks/PickerBlock/PickerBlock"
+import { Paper, Switch } from "@mui/material";
+import React from "react";
+import PickerBlock from "../../blocks/PickerBlock/PickerBlock";
+import SwithThemeBlock from "../../blocks/SwitchThemeBlock/SwithThemeBlock";
 
-import './Header.scss'
+import "./Header.scss";
 
 const Header: React.FC = () => {
-
   return (
-    <div className="header">
+    <Paper className="header">
       <PickerBlock />
-    </div>
-  )
-}
+      <SwithThemeBlock />
+    </Paper>
+  );
+};
 
-export default Header
+export default Header;

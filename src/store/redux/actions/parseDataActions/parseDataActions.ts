@@ -33,14 +33,6 @@ const ParseDataActions = {
       },
     })
   ),
-  // setResource: createAction(
-  //   ALL_ACTION.PARSE_DATA_ACTIONS.SET_RESOURCE,
-  //   (dateResource: ) => ({
-  //     payload: {
-  //       datePeriod,
-  //     },
-  //   })
-  // ),
 };
 
 const ParseDataThunks = {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
 import PlatformResourceParser from "../../../parsers/PlatformResourceParser/PlatformResourceParsers";
 import { RootReducer } from "../../../store/redux/store";
-import MultiTypeCharts from "../MultitypeCharts/MultiTypeCharts";
+import MultiTypeCharts from "../layouts/MultitypeCharts/MultiTypeCharts";
 
 
 const MixedResource: React.FC = () => {
