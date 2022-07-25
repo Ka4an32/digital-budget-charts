@@ -1,17 +1,18 @@
+import { useTheme } from "@mui/material";
 import { ChartData } from "chart.js";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import PlatformResourceParser from "../../../parsers/PlatformResourceParser/PlatformResourceParsers";
 import { RootReducer } from "../../../store/redux/store";
 import MultiTypeCharts from "../layouts/MultitypeCharts/MultiTypeCharts";
 
-
 const MixedResource: React.FC = () => {
-
   const [data, setData] = useState<any>({
     labels: [],
     datasets: [],
   });
+
+  const theme: any = useTheme();
 
   const { periodData } = useSelector((state: RootReducer) => ({
     periodData: state.ParseDataReducer.periodData,
@@ -25,25 +26,28 @@ const MixedResource: React.FC = () => {
       labels: budgetData.labels,
       datasets: [
         {
-          type: 'bar',
-          label: 'Budget',
-          data: budgetData.data.AllResources
+          type: "line",
+          label: "Trafic",
+          data: visitData.data.AllResources,
+          backgroundColor: theme.palette.trafic.light,
+          borderColor: theme.palette.trafic.light,
         },
         {
-          type: 'line',
-          label: 'Trafic',
-          data: visitData.data.AllResources
-        }
-      ]
-    })
-
-  }, [periodData]);
+          type: "bar",
+          label: "Budget",
+          data: budgetData.data.AllResources,
+          backgroundColor: theme.palette.budget.light,
+          borderColor: theme.palette.budget.light,
+        },
+      ],
+    });
+  }, [periodData, theme]);
 
   return (
     <div>
       <MultiTypeCharts data={data} />
     </div>
-  )
-}
+  );
+};
 
-export default MixedResource
+export default MixedResource;

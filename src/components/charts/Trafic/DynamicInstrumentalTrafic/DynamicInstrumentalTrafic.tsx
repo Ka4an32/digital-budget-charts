@@ -31,7 +31,7 @@ const DynamicInstrumentalTrafic: React.FC = () => {
       labels: data.labels,
       datasets: dataWitchColor,
     })
-  }, [periodData]);
+  }, [periodData, theme]);
 
   return (
     <div>

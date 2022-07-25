@@ -51,7 +51,7 @@ const PlatformTrafic = () => {
         },
       ],
     });
-  }, [periodData]);
+  }, [periodData, theme]);
 
   return (
     <div>

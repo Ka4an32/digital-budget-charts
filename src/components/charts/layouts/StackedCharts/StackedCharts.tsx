@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 import { FormControlLabel, Switch } from "@mui/material";
+import parseNumber from "../../../../utils/parseNumber/parseNumber";
 
 Chart.register(ChartjsPluginStacked100);
 
@@ -23,9 +24,11 @@ const StackedCharts: React.FC<{
         stacked: true,
         max: isProcent ? 100 : undefined,
         min: 0,
-        // ticks: {
-        //   callback: isProcent ? (value: string) => `${value}%` : undefined,
-        // },
+        ticks: {
+          callback: (value: any, index: any, values: any) => {
+            return parseNumber(value);
+          },
+        },
       },
       x: {
         stacked: true,
@@ -59,7 +62,7 @@ const StackedCharts: React.FC<{
         <FormControlLabel
           control={<Switch onChange={handleChange} />}
           labelPlacement="end"
-          label={isProcent ? 'Проценты' : 'Значения'}
+          label={isProcent ? "Проценты" : "Значения"}
         />
       </div>
       <Bar width={"100%"} height={"30vh"} options={options} data={data} />

@@ -2,7 +2,7 @@ import { Switch } from "@mui/material"
 import { useContext } from "react"
 import { ColorModeContext } from "../../../services/ColorThemeService/ColorThemeService"
 
-const SwithThemeBlock = () => {
+const SwitсhThemeBlock = () => {
 
   const theme = useContext(ColorModeContext)
   const isChecked = theme.mode === 'dark'
@@ -14,4 +14,4 @@ const SwithThemeBlock = () => {
   )
 }
 
-export default SwithThemeBlock
+export default SwitсhThemeBlock

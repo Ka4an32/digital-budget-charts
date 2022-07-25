@@ -53,7 +53,7 @@ const PlatformExpens = () => {
         },
       ],
     });
-  }, [periodData]);
+  }, [periodData, theme]);
 
   return (
     <div>

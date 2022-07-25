@@ -64,6 +64,10 @@ const InstrumentalExpens: React.FC = () => {
       return theme.palette[item].light
     })
 
+    const backgroundColorOpacity = ConfigAllData.labels.map((item) => {
+      return theme.palette[item].light + "85"
+    })
+
     setDataDough({
       labels: ConfigAllData.labels,
       datasets: [
@@ -80,7 +84,8 @@ const InstrumentalExpens: React.FC = () => {
       datasets: [
         {
           data: ConfigAllData.data,
-          backgroundColor: backgroundColor
+          backgroundColor: backgroundColorOpacity,
+          borderColor: backgroundColor
         },
       ],
     });
@@ -90,15 +95,18 @@ const InstrumentalExpens: React.FC = () => {
         {
           label: "Desktop",
           data: ConfigDesktopData.data,
-          backgroundColor: backgroundColor
+          backgroundColor: backgroundColor,
+          borderColor: backgroundColor
         },
         {
           label: "Mobile",
           data: ConfigMobileData.data,
+          backgroundColor: backgroundColorOpacity,
+          borderColor: backgroundColorOpacity
         },
       ],
     });
-  }, [periodData, themeController.mode]);
+  }, [periodData, themeController.mode, themeController.colorMode]);
 
   return (
     <Grid spacing={5} container>

@@ -15,26 +15,34 @@ import {
   LineControllerChartOptions,
   ChartData,
 } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import { _DeepPartialObject } from "chart.js/types/utils";
+import parseNumber from "../../../../utils/parseNumber/parseNumber";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  // ChartDataLabels,
   Tooltip,
   Legend,
   Title,
   Filler
 );
 
-const options: _DeepPartialObject<
-  CoreChartOptions<"line"> &
-    PluginChartOptions<"line" & LineControllerChartOptions>
-> = {
+const options: any = {
   responsive: true,
-
+  scales: {
+    y: {
+      ticks: {
+        callback: (value: any, index: any, values: any) => {
+          return parseNumber(value);
+        },
+      },
+    },
+  },
   plugins: {
     legend: {
       position: "top" as const,
