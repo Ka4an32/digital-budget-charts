@@ -45,13 +45,17 @@ const summInstrumentalBudget = (
     }
   }
 
-  const labels = [];
-  const data = [];
+  const labels: string[] = [];
+  const data: number[] = [];
 
-  for (let key in AllInstrumentalBudget) {
-    labels.push(key);
-    data.push(AllInstrumentalBudget[key]);
-  }
+  const sortArray = Object.entries(AllInstrumentalBudget).sort(
+    (a, b) => a[1] - b[1]
+  );
+
+  sortArray.forEach((item) => {
+    labels.push(item[0]);
+    data.push(item[1]);
+  });
 
   return {
     labels,

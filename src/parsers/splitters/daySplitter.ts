@@ -3,9 +3,10 @@ import { DifferentData } from "../../types/dataTypes";
 
 const DaySplitterData = (days: dayType[]) => {
   const dayData = days.reduce((reduce: DifferentData, { data, date }) => {
+    const [year, month, day] = date.split("-");
     reduce[date] = {
       data,
-      label: date,
+      label: `${day}.${month}.${year}`,
     };
     return reduce;
   }, {});

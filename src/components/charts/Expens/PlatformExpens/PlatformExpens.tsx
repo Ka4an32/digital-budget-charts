@@ -20,8 +20,6 @@ const PlatformExpens = () => {
 
   const theme: any = useTheme()
 
-  console.log('palette__',theme.palette);
-
   useEffect(() => {
     const { data, labels } = PlatformResourceParser(periodData, "budget");
     setData({

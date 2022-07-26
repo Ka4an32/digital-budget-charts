@@ -59,11 +59,9 @@ const StackedCharts: React.FC<{
   return (
     <div>
       <div>
-        <FormControlLabel
-          control={<Switch onChange={handleChange} />}
-          labelPlacement="end"
-          label={isProcent ? "Проценты" : "Значения"}
-        />
+        Значения
+        <Switch onChange={handleChange} />
+        Проценты
       </div>
       <Bar width={"100%"} height={"30vh"} options={options} data={data} />
     </div>

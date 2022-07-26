@@ -11,6 +11,16 @@ const DynamicInstrumentalExpens: React.FC = () => {
     labels: [],
     datasets: [],
   });
+  const [middleData, setMiddleData] = useState<{
+    labels: string[];
+    datasets: {
+      label: string;
+      data: any;
+    }[];
+  }>({
+    labels: [],
+    datasets: [],
+  });
 
   const { periodData } = useSelector((state: RootReducer) => ({
     periodData: state.ParseDataReducer.periodData,
@@ -20,15 +30,24 @@ const DynamicInstrumentalExpens: React.FC = () => {
 
   useEffect(() => {
     const data = StackedChartDataParser(periodData, "budget");
-    const dataWitchColor = data.datasets.map((item) => ({
+    setMiddleData({
+      labels: data.labels,
+      datasets: data.datasets,
+    });
+  }, [periodData]);
+
+  useEffect(() => {
+    console.log(data);
+    const dataWitchColor = middleData.datasets.map((item) => ({
       ...item,
       backgroundColor: theme.palette[item.label].light,
     }));
+
     setData({
-      labels: data.labels,
+      labels: middleData.labels,
       datasets: dataWitchColor,
     });
-  }, [periodData, theme]);
+  }, [middleData, theme]);
 
   return (
     <div>

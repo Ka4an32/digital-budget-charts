@@ -35,11 +35,11 @@ const StackedChartDataParser = (
     datasets.push({
       label: key,
       data: data[key],
-      backgroundColor: `rgba(${Math.random() * 100}, ${Math.random() * 100}, ${
-        Math.random() * 100
-      })`,
+      sum: data[key].reduce((acc: number, item: number) => (acc += item), 0),
     });
   }
+
+  datasets.sort((a, b) => a.sum - b.sum);
 
   const parseData = {
     labels,

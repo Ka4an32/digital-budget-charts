@@ -5,9 +5,11 @@ import { useSelector } from "react-redux";
 import ShareParser from "../../../../parsers/InstrumentalResourceParser/ShareParser";
 import { ColorModeContext } from "../../../../services/ColorThemeService/ColorThemeService";
 import { RootReducer } from "../../../../store/redux/store";
+import { chartDataType } from "../../../../types/chartsType";
+import InstrumentalTables, {
+  InstrumentalTableInterface,
+} from "../../../tables/InstrumentalTables/InstrumentalTables";
 import DoughtCharts from "../../layouts/DoughnutChart/DoughtCatrts";
-import HorizontalAllInstrumentalBar from "../../layouts/HorizontalChart/HorizontalAllInstrumentalBar";
-import HorizontalDifferentInstrumentalBar from "../../layouts/HorizontalChart/HorizontalDifferentInstrumentalBar";
 
 const gridStyle = {
   // display: "flex",
@@ -28,26 +30,32 @@ const options = {
 };
 
 const InstrumentalExpens: React.FC = () => {
+  const [middleDataDough, setMiddleDataDough] = useState<chartDataType>({
+    labels: [],
+    datasets: [],
+  });
+
   const [dataDough, setDataDough] = useState<ChartData<"doughnut">>({
     labels: [],
     datasets: [],
   });
 
-  const [dataAllInstrumental, setDataAllInstrumental] = useState<
-    ChartData<"bar">
-  >({
-    labels: [],
-    datasets: [],
+  const [mixData, setMixData] = useState<InstrumentalTableInterface>({
+    ConfigAllData: {
+      data: [],
+      labels: [],
+    },
+    ConfigDesktopData: {
+      data: [],
+      labels: [],
+    },
+    ConfigMobileData: {
+      data: [],
+      labels: [],
+    },
   });
 
-  const [dataDiffInstrumental, setDataDiffInstrumental] = useState<
-    ChartData<"bar">
-  >({
-    labels: [],
-    datasets: [],
-  });
-
-  const themeController = useContext(ColorModeContext)
+  const themeController = useContext(ColorModeContext);
   const theme: any = useTheme();
 
   const { periodData } = useSelector((state: RootReducer) => ({
@@ -59,65 +67,42 @@ const InstrumentalExpens: React.FC = () => {
       periodData,
       "budget"
     );
+    setMiddleDataDough({
+      labels: ConfigAllData.labels,
+      datasets: ConfigAllData.data,
+    });
+    setMixData({
+      ConfigAllData,
+      ConfigDesktopData,
+      ConfigMobileData,
+    });
+  }, [periodData]);
 
-    const backgroundColor = ConfigAllData.labels.map((item) => {
-      return theme.palette[item].light
-    })
-
-    const backgroundColorOpacity = ConfigAllData.labels.map((item) => {
-      return theme.palette[item].light + "85"
-    })
+  useEffect(() => {
+    const backgroundColor = middleDataDough.labels.map((item) => {
+      return theme.palette[item].light;
+    });
 
     setDataDough({
-      labels: ConfigAllData.labels,
+      labels: middleDataDough.labels,
       datasets: [
         {
-          data: ConfigAllData.data,
+          data: middleDataDough.datasets,
           borderWidth: 1,
           backgroundColor: backgroundColor,
-          borderColor: themeController.mode === 'light' ? '#FFFFFF' : "#000000"
+          borderColor: themeController.mode === "light" ? "#FFFFFF" : "#000000",
         },
       ],
     });
-    setDataAllInstrumental({
-      labels: ConfigAllData.labels,
-      datasets: [
-        {
-          data: ConfigAllData.data,
-          backgroundColor: backgroundColorOpacity,
-          borderColor: backgroundColor
-        },
-      ],
-    });
-    setDataDiffInstrumental({
-      labels: ConfigDesktopData.labels,
-      datasets: [
-        {
-          label: "Desktop",
-          data: ConfigDesktopData.data,
-          backgroundColor: backgroundColor,
-          borderColor: backgroundColor
-        },
-        {
-          label: "Mobile",
-          data: ConfigMobileData.data,
-          backgroundColor: backgroundColorOpacity,
-          borderColor: backgroundColorOpacity
-        },
-      ],
-    });
-  }, [periodData, themeController.mode, themeController.colorMode]);
+  }, [middleDataDough, themeController.mode, themeController.colorMode]);
 
   return (
     <Grid spacing={5} container>
-      <Grid lg={3} md={7} sm={12} sx={[gridStyle, {margin: '0 auto'}]} item>
+      <Grid lg={3.5} md={5} sm={12} sx={[gridStyle, { margin: "0 auto" }]} item>
         <DoughtCharts data={dataDough} options={options} />
       </Grid>
-      <Grid lg={4.5} md={6} sm={12} sx={gridStyle} item>
-        <HorizontalAllInstrumentalBar data={dataAllInstrumental} />
-      </Grid>
-      <Grid lg={4.5} md={6} sm={12} sx={gridStyle} item>
-        <HorizontalDifferentInstrumentalBar data={dataDiffInstrumental} />
+      <Grid lg={8} md={7} sm={12} sx={gridStyle} item>
+        <InstrumentalTables {...mixData} />
       </Grid>
     </Grid>
   );

@@ -6,7 +6,7 @@ const YearSplitterData = (days: dayType[]) => {
   const dateBefore = new Date();
   const yearsData = days.reduce((reduce: DifferentData, { data, date }) => {
     const [year] = date.split("-");
-    return splitterCore(data, reduce, year, `${year}-01-01`);
+    return splitterCore(data, reduce, year, `${year}`);
   }, {});
   const dateAfter = new Date();
   // console.log(

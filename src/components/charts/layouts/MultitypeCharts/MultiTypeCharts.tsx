@@ -11,6 +11,7 @@ import {
   ChartData,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
+import parseNumber from "../../../../utils/parseNumber/parseNumber";
 
 ChartJS.register(
   LinearScale,
@@ -22,12 +23,43 @@ ChartJS.register(
   Tooltip
 );
 
+const option: any = {
+  responsive: true,
+  interaction: {
+    mode: 'index',
+    intersect: false,
+  },
+  stacked: false,
+  scales: {
+    y: {
+      type: 'linear',
+      display: true,
+      position: 'left',
+      ticks: {
+        callback: (value: any, index: any, values: any) => {
+          return parseNumber(value);
+        },
+      },
+    },
+    y1: {
+      type: 'linear',
+      display: true,
+      position: 'right',
+      ticks: {
+        callback: (value: any, index: any, values: any) => {
+          return parseNumber(value);
+        },
+      },
+    }
+  }
+}
+
 const MultiTypeCharts: React.FC<{
   data: ChartData<'bar'>;
 }> = ({ data }) => {
   return (
     <div>
-      <Chart height={'30vh'} width={'100%'} type="bar" data={data} />
+      <Chart height={'30vh'} width={'100%'} type="bar" data={data} options={option} />
     </div>
   );
 };

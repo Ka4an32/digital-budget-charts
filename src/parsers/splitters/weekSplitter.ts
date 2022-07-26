@@ -25,7 +25,7 @@ const WeekSplitterData = (days: dayType[]) => {
       dayCount += 6;
     }
 
-    return splitterCore(data, reduce, `${count}`, `${year}-${month}-${day}`);
+    return splitterCore(data, reduce, `${count}`, `${day}.${month}.${year}`);
   }, {});
   return weeklyData;
 };

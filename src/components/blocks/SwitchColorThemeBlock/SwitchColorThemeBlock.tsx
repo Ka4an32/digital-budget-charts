@@ -17,8 +17,6 @@ const SwithColorThemeBlock = () => {
     colorTheme.changeColorMode(event.target.value as keyof typeof color);
   };
 
-  console.log(colorTheme);
-
   return (
     <div>
       <FormControl fullWidth>

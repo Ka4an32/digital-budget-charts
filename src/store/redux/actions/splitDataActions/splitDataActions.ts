@@ -52,10 +52,10 @@ const SplitDataThunks = {
         MONTH,
         YEAR,
       };
-      console.log("Year diff collection: ", YEAR);
-      console.log("Month diff collection: ", MONTH);
+      // console.log("Year diff collection: ", YEAR);
+      // console.log("Month diff collection: ", MONTH);
       console.log("Weekly diff collection: ", WEEKLY);
-      console.log("Day diff collection: ", DAY);
+      // console.log("Day diff collection: ", DAY);
       dispatch(
         SplitDataActions.setSplitData({
           siteData: {

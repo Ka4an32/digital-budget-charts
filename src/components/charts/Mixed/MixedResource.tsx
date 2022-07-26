@@ -31,6 +31,8 @@ const MixedResource: React.FC = () => {
           data: visitData.data.AllResources,
           backgroundColor: theme.palette.trafic.light,
           borderColor: theme.palette.trafic.light,
+          yAxisID: 'y1',
+          tension: 0.1
         },
         {
           type: "bar",
@@ -38,6 +40,7 @@ const MixedResource: React.FC = () => {
           data: budgetData.data.AllResources,
           backgroundColor: theme.palette.budget.light,
           borderColor: theme.palette.budget.light,
+          yAxisID: 'y',
         },
       ],
     });

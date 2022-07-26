@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import ShareParser from "../../../../parsers/InstrumentalResourceParser/ShareParser";
 import { ColorModeContext } from "../../../../services/ColorThemeService/ColorThemeService";
 import { RootReducer } from "../../../../store/redux/store";
+import InstrumentalTables, { InstrumentalTableInterface } from "../../../tables/InstrumentalTables/InstrumentalTables";
 import DoughtCharts from "../../layouts/DoughnutChart/DoughtCatrts";
 import HorizontalAllInstrumentalBar from "../../layouts/HorizontalChart/HorizontalAllInstrumentalBar";
 import HorizontalDifferentInstrumentalBar from "../../layouts/HorizontalChart/HorizontalDifferentInstrumentalBar";
@@ -33,27 +34,26 @@ const InstrumentalTrafic: React.FC = () => {
     datasets: [],
   });
 
-  const [dataAllInstrumental, setDataAllInstrumental] = useState<
-    ChartData<"bar">
-  >({
-    labels: [],
-    datasets: [],
-  });
-
-  const [dataDiffInstrumental, setDataDiffInstrumental] = useState<
-    ChartData<"bar">
-  >({
-    labels: [],
-    datasets: [],
-  });
-
   const { periodData } = useSelector((state: RootReducer) => ({
     periodData: state.ParseDataReducer.periodData,
   }));
 
   const theme: any = useTheme();
-
   const themeController = useContext(ColorModeContext);
+  const [mixData, setMixData] = useState<InstrumentalTableInterface>({
+    ConfigAllData: {
+      data: [],
+      labels: [],
+    },
+    ConfigDesktopData: {
+      data: [],
+      labels: [],
+    },
+    ConfigMobileData: {
+      data: [],
+      labels: [],
+    },
+  });
 
   useEffect(() => {
     const { ConfigAllData, ConfigDesktopData, ConfigMobileData } = ShareParser(
@@ -66,8 +66,8 @@ const InstrumentalTrafic: React.FC = () => {
     });
 
     const backgroundColorOpacity = ConfigAllData.labels.map((item) => {
-      return theme.palette[item].light + "85"
-    })
+      return theme.palette[item].light + "85";
+    });
 
     setDataDough({
       labels: ConfigAllData.labels,
@@ -79,42 +79,20 @@ const InstrumentalTrafic: React.FC = () => {
         },
       ],
     });
-    setDataAllInstrumental({
-      labels: ConfigAllData.labels,
-      datasets: [
-        {
-          data: ConfigAllData.data,
-          backgroundColor: backgroundColor,
-        },
-      ],
-    });
-    setDataDiffInstrumental({
-      labels: ConfigDesktopData.labels,
-      datasets: [
-        {
-          label: "Desktop",
-          data: ConfigDesktopData.data,
-          backgroundColor: backgroundColor
-        },
-        {
-          label: "Mobile",
-          data: ConfigMobileData.data,
-          backgroundColor: backgroundColorOpacity
-        },
-      ],
-    });
+    setMixData({
+      ConfigAllData,
+      ConfigDesktopData,
+      ConfigMobileData
+    })
   }, [periodData, themeController.mode, themeController.colorMode]);
 
   return (
     <Grid spacing={5} container>
-      <Grid lg={3} md={7} sm={12} sx={gridStyle} item>
+      <Grid lg={3.5} md={5} sm={7} sx={gridStyle} item>
         <DoughtCharts data={dataDough} options={options} />
       </Grid>
-      <Grid lg={4.5} md={6} sm={12} sx={gridStyle} item>
-        <HorizontalAllInstrumentalBar data={dataAllInstrumental} />
-      </Grid>
-      <Grid lg={4.5} md={6} sm={12} sx={gridStyle} item>
-        <HorizontalDifferentInstrumentalBar data={dataDiffInstrumental} />
+      <Grid lg={8} md={7} sm={12} sx={gridStyle} item>
+        <InstrumentalTables {...mixData}/>
       </Grid>
     </Grid>
   );
