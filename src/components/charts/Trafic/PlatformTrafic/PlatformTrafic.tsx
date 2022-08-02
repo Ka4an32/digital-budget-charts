@@ -18,7 +18,7 @@ const PlatformTrafic = () => {
     periodData: state.ParseDataReducer.periodData,
   }));
 
-  const theme: any = useTheme()
+  const theme: any = useTheme();
 
   useEffect(() => {
     const { data, labels } = PlatformResourceParser(periodData, "visits");
@@ -30,28 +30,22 @@ const PlatformTrafic = () => {
           data: data.AllResources,
           tension,
           fill: true,
-          backgroundColor: theme.palette.totalExpens.light + '30',
-          borderColor: theme.palette.totalExpens.light,
         },
         {
           label: "Desktop",
           data: data.DesktopResources,
           tension,
           fill: true,
-          backgroundColor: theme.palette.desktopExpens.light + '30',
-          borderColor: theme.palette.desktopExpens.light,
         },
         {
           label: "Mobile",
           data: data.MobileResources,
           tension,
           fill: true,
-          backgroundColor: theme.palette.desktopExpens.light + '30',
-          borderColor: theme.palette.desktopExpens.light,
         },
       ],
     });
-  }, [periodData, theme]);
+  }, [periodData]);
 
   return (
     <div>

@@ -6,6 +6,8 @@ import parseDataActions from "../../../store/redux/actions/parseDataActions/pars
 import { AppThunkDispatch, RootReducer } from "../../../store/redux/store";
 import { dateModeType } from "../../../types/splitDataType";
 
+import './PickerBlock.scss'
+
 const PickerBlock: React.FC = () => {
   const [period, setPeriod] = useState<[Date, Date] | null>(null);
 

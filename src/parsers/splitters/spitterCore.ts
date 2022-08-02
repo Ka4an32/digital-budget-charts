@@ -7,18 +7,25 @@ const splitterCore = (
   label: string
 ) => {
   if (reduce[key]) {
-    reduce[key].data.map(({ kind, type }, index) => {
-      data.forEach(({ visits, budget, ...item }) => {
-        if (item.kind === kind && item.type === type) {
-          reduce[key].data[index].budget += budget;
-          reduce[key].data[index].visits += visits;
-        }
-      });
+    data.forEach(({ visits, budget, ...item }) => {
+      const index = reduce[key].data.findIndex(
+        (itemData) => itemData.kind === item.kind && itemData.type === item.type
+      );
+      if (index >= 0) {
+        reduce[key].data[index].budget += budget;
+        reduce[key].data[index].visits += visits;
+      } else {
+        reduce[key].data.push({
+          visits,
+          budget,
+          ...item,
+        });
+      }
     });
   } else {
     reduce[key] = {
       label,
-      data,
+      data: [...data],
     };
   }
   return reduce;

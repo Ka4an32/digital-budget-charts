@@ -1,18 +1,15 @@
 import { dayType } from "../../data/data";
 import { DifferentData } from "../../types/dataTypes";
 import splitterCore from "./spitterCore";
+import _ from "lodash";
 
 const YearSplitterData = (days: dayType[]) => {
-  const dateBefore = new Date();
-  const yearsData = days.reduce((reduce: DifferentData, { data, date }) => {
+  const copyData = _.cloneDeep(days);
+  const yearsData = copyData.reduce((reduce: DifferentData, { data, date }) => {
     const [year] = date.split("-");
-    return splitterCore(data, reduce, year, `${year}`);
+    // debugger;
+    return splitterCore(data, reduce, year, year);
   }, {});
-  const dateAfter = new Date();
-  // console.log(
-  //   "Get summ year: ",
-  //   (dateAfter.getTime() - dateBefore.getTime()) / 1000
-  // );
   return yearsData;
 };
 

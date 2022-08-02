@@ -13,10 +13,10 @@ type initialStateType = {
 };
 
 const initialState: initialStateType = {
-  dateMode: "MONTH",
+  dateMode: "DAY",
   datePeriod: null,
   periodData: [],
-  allowedDateMode: [],
+  allowedDateMode: ["DAY", "MONTH", "WEEKLY", "YEAR"],
   resource: {
     budget: {
       all: 0,

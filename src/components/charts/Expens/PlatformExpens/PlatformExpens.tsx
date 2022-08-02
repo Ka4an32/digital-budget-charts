@@ -18,8 +18,6 @@ const PlatformExpens = () => {
     periodData: state.ParseDataReducer.periodData,
   }));
 
-  const theme: any = useTheme()
-
   useEffect(() => {
     const { data, labels } = PlatformResourceParser(periodData, "budget");
     setData({
@@ -30,28 +28,22 @@ const PlatformExpens = () => {
           data: data.AllResources,
           tension,
           fill: true,
-          backgroundColor: theme.palette.totalExpens.light + '30',
-          borderColor: theme.palette.totalExpens.light,
         },
         {
           label: "Desktop",
           data: data.DesktopResources,
           tension,
           fill: true,
-          backgroundColor: theme.palette.desktopExpens.light + '45',
-          borderColor: theme.palette.desktopExpens.light,
         },
         {
           label: "Mobile",
           fill: true,
           data: data.MobileResources,
           tension,
-          backgroundColor: theme.palette.mobileExpens.light + '40',
-          borderColor: theme.palette.mobileExpens.light,
         },
       ],
     });
-  }, [periodData, theme]);
+  }, [periodData]);
 
   return (
     <div>

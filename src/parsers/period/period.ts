@@ -20,9 +20,14 @@ const periodParser = (
     const endTime = end.getTime();
 
     for (let key in rangeData) {
-      const [year, month, day] = rangeData[key].label.split(".");
-      const date = new Date(+day, +month - 1, +year);
+      const [year, month = 0, day = 0] = rangeData[key].label
+        .split(".")
+        .reverse();
+      const date = new Date(+year, +month - 1, +day);
+      console.log(+day, +month - 1, +year, date);
       const time = date.getTime();
+
+      console.log(time);
 
       if (time >= startTime && time <= endTime) {
         periodData.push(rangeData[key]);

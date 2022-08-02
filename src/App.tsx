@@ -19,6 +19,8 @@ export type selectionRange = Array<{
   key: string;
 }>;
 
+// console.log(data);
+
 function App() {
   const dispatch: AppThunkDispatch = useDispatch();
 

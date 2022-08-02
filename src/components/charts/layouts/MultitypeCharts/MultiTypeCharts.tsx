@@ -11,7 +11,7 @@ import {
   ChartData,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
-import parseNumber from "../../../../utils/parseNumber/parseNumber";
+import { bindNumberUnits } from "../../../../utils/bindNumberUnits/bindNumberUnits";
 
 ChartJS.register(
   LinearScale,
@@ -26,40 +26,51 @@ ChartJS.register(
 const option: any = {
   responsive: true,
   interaction: {
-    mode: 'index',
+    mode: "index",
     intersect: false,
   },
   stacked: false,
   scales: {
     y: {
-      type: 'linear',
+      type: "linear",
       display: true,
-      position: 'left',
+      position: "left",
       ticks: {
         callback: (value: any, index: any, values: any) => {
-          return parseNumber(value);
+          return bindNumberUnits(value);
         },
       },
     },
     y1: {
-      type: 'linear',
+      type: "linear",
       display: true,
-      position: 'right',
+      position: "right",
       ticks: {
         callback: (value: any, index: any, values: any) => {
-          return parseNumber(value);
+          return bindNumberUnits(value);
         },
       },
-    }
-  }
-}
+    },
+  },
+  plugins: {
+    datalabels: {
+      display: false,
+    },
+  },
+};
 
 const MultiTypeCharts: React.FC<{
-  data: ChartData<'bar'>;
+  data: ChartData<"bar">;
 }> = ({ data }) => {
   return (
     <div>
-      <Chart height={'30vh'} width={'100%'} type="bar" data={data} options={option} />
+      <Chart
+        height={"30vh"}
+        width={"100%"}
+        type="bar"
+        data={data}
+        options={option}
+      />
     </div>
   );
 };

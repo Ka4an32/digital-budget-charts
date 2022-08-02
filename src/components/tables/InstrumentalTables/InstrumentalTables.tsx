@@ -51,7 +51,7 @@ const InstrumentalTables: React.FC<InstrumentalTableInterface> = ({
 
   const data = labels.map((item, index) => {
     return createData(item, ConfigAllData.data[index], ConfigDesktopData.data[index], ConfigMobileData.data[index])
-  }).reverse()
+  })
 
   return (
     <div>

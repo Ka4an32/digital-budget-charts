@@ -67181,4 +67181,6 @@ const apiData: Data = {
   ],
 };
 
+console.log(apiData);
+
 export default apiData;

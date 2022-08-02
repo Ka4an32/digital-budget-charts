@@ -1,9 +1,8 @@
-import { Grid, useTheme } from "@mui/material";
+import { Grid} from "@mui/material";
 import { ChartData } from "chart.js";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ShareParser from "../../../../parsers/InstrumentalResourceParser/ShareParser";
-import { ColorModeContext } from "../../../../services/ColorThemeService/ColorThemeService";
 import { RootReducer } from "../../../../store/redux/store";
 import InstrumentalTables, { InstrumentalTableInterface } from "../../../tables/InstrumentalTables/InstrumentalTables";
 import DoughtCharts from "../../layouts/DoughnutChart/DoughtCatrts";
@@ -16,18 +15,6 @@ const gridStyle = {
   justifyContent: "center",
 };
 
-const options = {
-  plugins: {
-    legend: {
-      position: "left" as const,
-    },
-    // title: {
-    //   display: true,
-    //   text: "Chart.js KRUG Chart",
-    // },
-  },
-};
-
 const InstrumentalTrafic: React.FC = () => {
   const [dataDough, setDataDough] = useState<ChartData<"doughnut">>({
     labels: [],
@@ -38,8 +25,6 @@ const InstrumentalTrafic: React.FC = () => {
     periodData: state.ParseDataReducer.periodData,
   }));
 
-  const theme: any = useTheme();
-  const themeController = useContext(ColorModeContext);
   const [mixData, setMixData] = useState<InstrumentalTableInterface>({
     ConfigAllData: {
       data: [],
@@ -59,23 +44,13 @@ const InstrumentalTrafic: React.FC = () => {
     const { ConfigAllData, ConfigDesktopData, ConfigMobileData } = ShareParser(
       periodData,
       "visits"
-    );
-
-    const backgroundColor = ConfigAllData.labels.map((item) => {
-      return theme.palette[item].light;
-    });
-
-    const backgroundColorOpacity = ConfigAllData.labels.map((item) => {
-      return theme.palette[item].light + "85";
-    });
+    )
 
     setDataDough({
       labels: ConfigAllData.labels,
       datasets: [
         {
           data: ConfigAllData.data,
-          backgroundColor: backgroundColor,
-          borderColor: themeController.mode === "light" ? "#FFFFFF" : "#000000",
         },
       ],
     });
@@ -84,12 +59,12 @@ const InstrumentalTrafic: React.FC = () => {
       ConfigDesktopData,
       ConfigMobileData
     })
-  }, [periodData, themeController.mode, themeController.colorMode]);
+  }, [periodData]);
 
   return (
     <Grid spacing={5} container>
       <Grid lg={3.5} md={5} sm={7} sx={gridStyle} item>
-        <DoughtCharts data={dataDough} options={options} />
+        <DoughtCharts data={dataDough} />
       </Grid>
       <Grid lg={8} md={7} sm={12} sx={gridStyle} item>
         <InstrumentalTables {...mixData}/>

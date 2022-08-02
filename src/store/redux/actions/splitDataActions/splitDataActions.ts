@@ -42,6 +42,8 @@ const SplitDataThunks = {
     ({ category, site, days }: Data) =>
     (dispatch: AppThunkDispatch) => {
       dispatch(SplitDataActions.setProcces(true));
+      // debugger;
+      // console.log(days);
       const YEAR = YearSplitterData(days);
       const MONTH = MonthSplitterData(days);
       const WEEKLY = WeekSplitterData(days);
@@ -52,10 +54,10 @@ const SplitDataThunks = {
         MONTH,
         YEAR,
       };
-      // console.log("Year diff collection: ", YEAR);
-      // console.log("Month diff collection: ", MONTH);
+      console.log("Year diff collection: ", YEAR);
+      console.log("Month diff collection: ", MONTH);
       console.log("Weekly diff collection: ", WEEKLY);
-      // console.log("Day diff collection: ", DAY);
+      console.log("Day diff collection: ", DAY);
       dispatch(
         SplitDataActions.setSplitData({
           siteData: {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,22 +10,18 @@ import {
   Title,
   Legend,
   Filler,
-  CoreChartOptions,
-  PluginChartOptions,
-  LineControllerChartOptions,
   ChartData,
 } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import { _DeepPartialObject } from "chart.js/types/utils";
-import parseNumber from "../../../../utils/parseNumber/parseNumber";
+import { bindNumberUnits } from "../../../../utils/bindNumberUnits/bindNumberUnits";
+import { useTheme } from "@mui/system";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
-  // ChartDataLabels,
   Tooltip,
   Legend,
   Title,
@@ -38,7 +34,7 @@ const options: any = {
     y: {
       ticks: {
         callback: (value: any, index: any, values: any) => {
-          return parseNumber(value);
+          return bindNumberUnits(value);
         },
       },
     },
@@ -46,6 +42,9 @@ const options: any = {
   plugins: {
     legend: {
       position: "top" as const,
+    },
+    datalabels: {
+      display: false,
     },
     title: {
       display: true,
@@ -57,9 +56,41 @@ const options: any = {
 const LineChart: React.FC<{
   data: ChartData<"line">;
 }> = ({ data }) => {
+  const [lineData, setLineData] = useState<ChartData<"line"> | null>(null);
+  const theme: any = useTheme();
+  useEffect(() => {
+    setLineData({
+      ...data,
+      datasets: [
+        {
+          ...data.datasets[0],
+          backgroundColor: theme.palette.totalExpens.light + "40",
+          borderColor: theme.palette.totalExpens.light,
+        },
+        {
+          ...data.datasets[1],
+          backgroundColor: theme.palette.desktopExpens.light + "50",
+          borderColor: theme.palette.desktopExpens.light,
+        },
+        {
+          ...data.datasets[2],
+          backgroundColor: theme.palette.mobileExpens.light + "60",
+          borderColor: theme.palette.mobileExpens.light,
+        },
+      ],
+    });
+  }, [data, theme]);
+
   return (
     <div>
-      <Line width={"100%"} height={"30vh"} options={options} data={data} />
+      {lineData && (
+        <Line
+          width={"100%"}
+          height={"30vh"}
+          options={options}
+          data={lineData}
+        />
+      )}
     </div>
   );
 };

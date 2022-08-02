@@ -48,9 +48,9 @@ const summInstrumentalBudget = (
   const labels: string[] = [];
   const data: number[] = [];
 
-  const sortArray = Object.entries(AllInstrumentalBudget).sort(
-    (a, b) => a[1] - b[1]
-  );
+  const sortArray = Object.entries(AllInstrumentalBudget)
+    .sort((a, b) => a[1] - b[1])
+    .reverse();
 
   sortArray.forEach((item) => {
     labels.push(item[0]);

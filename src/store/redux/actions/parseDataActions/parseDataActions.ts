@@ -48,7 +48,6 @@ const ParseDataThunks = {
         mode
       );
       const periodData = periodParser(data, period, modeAfterPars);
-      // console.log("Choose period data: ", periodData)
       dispatch(ParseDataActions.setDatePeriod(period));
       dispatch(ParseDataActions.setDateMode(modeAfterPars, allowedPeriods));
       dispatch(ParseDataActions.setPeriodData(periodData));
